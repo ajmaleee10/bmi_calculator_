@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class Gredient extends StatelessWidget {
-  const Gredient({super.key});
+class Gredient extends StatefulWidget {
+
+  @override
+  State<Gredient> createState() => _GredientState();
+}
+
+class _GredientState extends State<Gredient> {
+ TextEditingController hcontroller=TextEditingController();
+
+ TextEditingController wcontroller=TextEditingController();
+
+ String result =""; 
+
+  void calculate(){
+    double h=double.parse(hcontroller.text)/100;
+    double w=double.parse(wcontroller.text);
+    double bmi=w/(h*h);
+    setState(() {
+      result="your bmi is ${bmi.toStringAsFixed(2)}";
+    });
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +45,7 @@ class Gredient extends StatelessWidget {
               SizedBox(height: 175),
               Text(
                 "BMI CALCULATOR",
-                style: TextStyle(
+                style:GoogleFonts.rubikBubbles(
                   fontSize: 24,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -40,7 +61,7 @@ class Gredient extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(height: 20),
-                        TextField(
+                        TextField( controller: hcontroller,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.height),
                             fillColor:const Color.fromARGB(255, 169, 172, 172),
@@ -59,7 +80,7 @@ class Gredient extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 15),
-                        TextField(
+                        TextField(controller: wcontroller,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.monitor_weight),
                             fillColor: const Color.fromARGB(255, 169, 172, 172),
@@ -76,29 +97,32 @@ class Gredient extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 15),
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.yellow,
-                                const Color.fromARGB(255, 249, 193, 9),
-                              ],
+                        GestureDetector(onTap: () =>calculate() ,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.yellow,
+                                  const Color.fromARGB(255, 249, 193, 9),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          height: 55,
-                          width: 450,
-                          child: Center(
-                            child: Text(
-                              "CALCULATE",
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                            height: 55,
+                            width: 450,
+                            child: Center(
+                              child: Text(
+                                "CALCULATE",
+                                style: GoogleFonts.acme(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
                           ),
                         ),
+                        Text(result,style: GoogleFonts.abhayaLibre(),selectionColor: Colors.black,),
                       ],
                     ),
                   ),
